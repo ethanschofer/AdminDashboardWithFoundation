@@ -1,44 +1,117 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 
+    @*Set the viewport width to device width for mobile *@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewBag.Title - Welcome to Foundation</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    @Styles.Render("~/Content/css")
+
+    @RenderSection("head", required: false)
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <div class="sticky">
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <a href="@Url.Action("Index","Home")"><strong>FOUNDATION</strong> Dashboard</a>
+                </li>
+                <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
+
+            <section class="top-bar-section">
+                <!-- Right Nav Section -->
+                <ul class="right"></ul>
+
+                <!-- Left Nav Section -->
+                <ul class="left"></ul>
+            </section>
+        </nav>
     </div>
 
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="login">
+                    @Html.Partial("_loginPartial")
+                </li>
+                @if (Request.IsAuthenticated)
+                {
+                    <li>
+                        <a href="@Url.Action("Index","Home")" alt="Dashboard"><i class="fa fa-home" alt="Home"></i> HOME</a>
+                    </li>
+                    @*<li>
+                        <a href="@Url.Action(MVC.Site.ActionNames.Index, MVC.Site.Name)" alt="Shortcuts"><i class="fa fa-archive" alt="Sites"></i> SITES</a>
+                    </li>
+                    if (User.IsInRole("Administrator"))
+                    {
+                        <li>
+                            <a href="@Url.Action(MVC.Server.ActionNames.Index, MVC.Server.Name)"><i class="fa fa-server" alt="Servers"></i> SERVERS</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action(MVC.Database.ActionNames.Index, MVC.Database.Name)"><i class="fa fa-database" alt="Databases"></i> DATABASES</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action(MVC.Hosting.ActionNames.Index, MVC.Hosting.Name)"><i class="fa fa-cogs" alt="Hosting"></i> HOSTING</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action(MVC.DomainHost.ActionNames.Index, MVC.DomainHost.Name)"><i class="fa fa-cloud" alt="Domain Hosting"></i> DOMAIN HOSTING</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action(MVC.User.ActionNames.Index, MVC.User.Name)"><i class="fa fa-users" alt="Users"></i> USERS</a>
+                        </li>
+                    }
+                    <li>
+                        <a href="@Url.Action(MVC.Billing.ActionNames.Index, MVC.Billing.Name)"><i class="fa fa-money" alt="Billing"></i> BILLING</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action(MVC.Reports.ActionNames.Index, MVC.Reports.Name)"><i class="fa fa-area-chart" alt="Reports"></i> REPORTS</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action(MVC.PasswordManager.ActionNames.Index, MVC.PasswordManager.Name)"><i class="fa fa-lock" alt="Contact"></i> PASSWORD MANAGER</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action(MVC.Home.ActionNames.Contact, MVC.Home.Name)"><i class="fa fa-envelope" alt="Contact"></i> CONTACT</a>
+                    </li>*@
+                }
+            </ul>
+        </div>
+
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            @RenderBody()
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+
+
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery-ui")
+    @Scripts.Render("~/bundles/foundation")
+    <script>
+        $(document).foundation();
+    </script>
+
+    <!--[if lt IE 9]>
+        @Scripts.Render("~/bundles/respond")
+    <![endif]-->
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).foundation();
+    </script>
+    @*Use the Scripts section to define page specific scripts*@
     @RenderSection("scripts", required: false)
 </body>
 </html>
